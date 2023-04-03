@@ -25,7 +25,6 @@ const Routes = () => {
         <Route path="/recipes/new" page={RecipeNewRecipePage} name="newRecipe" />
         <Route path="/recipes/{id}/edit" page={RecipeEditRecipePage} name="editRecipe" />
         <Route path="/recipes/{id}" page={RecipeRecipePage} name="recipe" />
-        <Route path="/recipes" page={RecipeRecipesPage} name="recipes" />
       </Set>
       <Set wrap={ScaffoldLayout} title="Users" titleTo="users" buttonLabel="New User" buttonTo="newUser">
         <Route path="/users/new" page={UserNewUserPage} name="newUser" />
@@ -33,6 +32,8 @@ const Routes = () => {
         <Route path="/users/{id}" page={UserUserPage} name="user" />
         <Route path="/users" page={UserUsersPage} name="users" />
       </Set>
+      <Route path="/recipes" page={RecipeRecipesPage} name="recipes" />
+
       <Route notfound page={NotFoundPage} />
     </Router>
   )

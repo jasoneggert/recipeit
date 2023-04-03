@@ -1,11 +1,11 @@
-import { Link, routes } from '@redwoodjs/router'
+import type { DeleteRecipeMutationVariables, FindRecipes } from 'types/graphql'
+
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Recipe/RecipesCell'
-import { truncate } from 'src/lib/formatters'
 
-import type { DeleteRecipeMutationVariables, FindRecipes } from 'types/graphql'
+import Recipe from '../Recipe'
 
 const DELETE_RECIPE_MUTATION = gql`
   mutation DeleteRecipeMutation($id: String!) {
@@ -30,63 +30,17 @@ const RecipesList = ({ recipes }: FindRecipes) => {
     awaitRefetchQueries: true,
   })
 
-  const onDeleteClick = (id: DeleteRecipeMutationVariables['id']) => {
-    if (confirm('Are you sure you want to delete recipe ' + id + '?')) {
-      deleteRecipe({ variables: { id } })
-    }
-  }
+  // const onDeleteClick = (id: DeleteRecipeMutationVariables['id']) => {
+  //   if (confirm('Are you sure you want to delete recipe ' + id + '?')) {
+  //     deleteRecipe({ variables: { id } })
+  //   }
+  // }
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
-      <table className="rw-table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Instructions</th>
-            <th>User id</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          {recipes.map((recipe) => (
-            <tr key={recipe.id}>
-              <td>{truncate(recipe.id)}</td>
-              <td>{truncate(recipe.title)}</td>
-              <td>{truncate(recipe.description)}</td>
-              <td>{truncate(recipe.instructions)}</td>
-              <td>{truncate(recipe.userId)}</td>
-              <td>
-                <nav className="rw-table-actions">
-                  <Link
-                    to={routes.recipe({ id: recipe.id })}
-                    title={'Show recipe ' + recipe.id + ' detail'}
-                    className="rw-button rw-button-small"
-                  >
-                    Show
-                  </Link>
-                  <Link
-                    to={routes.editRecipe({ id: recipe.id })}
-                    title={'Edit recipe ' + recipe.id}
-                    className="rw-button rw-button-small rw-button-blue"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    type="button"
-                    title={'Delete recipe ' + recipe.id}
-                    className="rw-button rw-button-small rw-button-red"
-                    onClick={() => onDeleteClick(recipe.id)}
-                  >
-                    Delete
-                  </button>
-                </nav>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {recipes.map((recipe) => {
+        return <Recipe key={recipe.id} recipe={recipe} />
+      })}
     </div>
   )
 }

@@ -1,94 +1,50 @@
-import { Link, routes, navigate } from '@redwoodjs/router'
+import { useState } from 'react'
+
 import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
 
-import {} from 'src/lib/formatters'
+const Recipe = ({ recipe }) => {
+  console.log('recipe', recipe)
+  const [vote, setVote] = useState(
+    recipe.votes.reduce((acc, cur) => acc + cur.vote, 0)
+  )
+  const [upvote] = useMutation(VOTE_MUTATION, {
+    onCompleted: () => {
+      setVote(vote + 1)
+    },
+  })
+  const [downvote] = useMutation(VOTE_MUTATION, {
+    onCompleted: () => {
+      setVote(vote - 1)
+    },
+  })
 
-// eslint-disable-next-line import/order
-import type {
-  DeleteRecipeMutationVariables,
-  FindRecipeById,
-} from 'types/graphql'
+  const handleUpvote = () => {
+    upvote({ variables: { recipeId: recipe.id, userId: , vote: 1 } })
+  }
 
-const DELETE_RECIPE_MUTATION = gql`
-  mutation DeleteRecipeMutation($id: String!) {
-    deleteRecipe(id: $id) {
+  const handleDownvote = () => {
+    downvote({ variables: { recipeId: recipe.id, vote: -1 } })
+  }
+
+  return (
+    <div>
+      <h2>{recipe.title}</h2>
+      <p>{recipe.description}</p>
+      <div>
+        <button onClick={handleUpvote}>^ </button>
+        <span>{vote}</span>
+        <button onClick={handleDownvote}>V</button>
+      </div>
+    </div>
+  )
+}
+
+const VOTE_MUTATION = gql`
+  mutation VoteMutation($recipeId: String!, $userId: String!, $vote: Int!) {
+    createVote(input: { recipeId: $recipeId, userId: $userId, vote: $vote }) {
       id
     }
   }
 `
-
-interface Props {
-  recipe: NonNullable<FindRecipeById['recipe']>
-}
-
-const Recipe = ({ recipe }: Props) => {
-  const [deleteRecipe] = useMutation(DELETE_RECIPE_MUTATION, {
-    onCompleted: () => {
-      toast.success('Recipe deleted')
-      navigate(routes.recipes())
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    },
-  })
-
-  const onDeleteClick = (id: DeleteRecipeMutationVariables['id']) => {
-    if (confirm('Are you sure you want to delete recipe ' + id + '?')) {
-      deleteRecipe({ variables: { id } })
-    }
-  }
-
-  return (
-    <>
-      <div className="rw-segment">
-        <header className="rw-segment-header">
-          <h2 className="rw-heading rw-heading-secondary">
-            Recipe {recipe.id} Detail
-          </h2>
-        </header>
-        <table className="rw-table">
-          <tbody>
-            <tr>
-              <th>Id</th>
-              <td>{recipe.id}</td>
-            </tr>
-            <tr>
-              <th>Title</th>
-              <td>{recipe.title}</td>
-            </tr>
-            <tr>
-              <th>Description</th>
-              <td>{recipe.description}</td>
-            </tr>
-            <tr>
-              <th>Instructions</th>
-              <td>{recipe.instructions}</td>
-            </tr>
-            <tr>
-              <th>User id</th>
-              <td>{recipe.userId}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <nav className="rw-button-group">
-        <Link
-          to={routes.editRecipe({ id: recipe.id })}
-          className="rw-button rw-button-blue"
-        >
-          Edit
-        </Link>
-        <button
-          type="button"
-          className="rw-button rw-button-red"
-          onClick={() => onDeleteClick(recipe.id)}
-        >
-          Delete
-        </button>
-      </nav>
-    </>
-  )
-}
 
 export default Recipe

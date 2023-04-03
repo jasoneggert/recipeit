@@ -13,6 +13,12 @@ export const QUERY = gql`
       description
       instructions
       userId
+      votes {
+        id
+        vote
+        userId
+        recipeId
+      }
     }
   }
 `
@@ -35,5 +41,6 @@ export const Failure = ({ error }: CellFailureProps) => (
 )
 
 export const Success = ({ recipes }: CellSuccessProps<FindRecipes>) => {
+  console.log('recipes cell')
   return <Recipes recipes={recipes} />
 }
