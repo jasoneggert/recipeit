@@ -1,6 +1,33 @@
 import { useState } from 'react'
 
+import styled from 'styled-components'
+
 import { useMutation } from '@redwoodjs/web'
+
+const RecipeContainer = styled.div`
+  border: 1px solid gray;
+  margin-bottom: 10px;
+  padding: 10px;
+`
+
+const RecipeTitle = styled.h2`
+  font-size: 24px;
+`
+
+const VoteContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const VoteButton = styled.button`
+  font-size: 18px;
+  margin-right: 5px;
+`
+
+const VoteCount = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+`
 
 const Recipe = ({ recipe }) => {
   console.log('recipe', recipe)
@@ -19,7 +46,7 @@ const Recipe = ({ recipe }) => {
   })
 
   const handleUpvote = () => {
-    upvote({ variables: { recipeId: recipe.id, userId: , vote: 1 } })
+    upvote({ variables: { recipeId: recipe.id, vote: 1 } })
   }
 
   const handleDownvote = () => {
@@ -27,15 +54,15 @@ const Recipe = ({ recipe }) => {
   }
 
   return (
-    <div>
-      <h2>{recipe.title}</h2>
+    <RecipeContainer>
+      <RecipeTitle>{recipe.title}</RecipeTitle>
       <p>{recipe.description}</p>
-      <div>
-        <button onClick={handleUpvote}>^ </button>
-        <span>{vote}</span>
-        <button onClick={handleDownvote}>V</button>
-      </div>
-    </div>
+      <VoteContainer>
+        <VoteButton onClick={handleUpvote}>^</VoteButton>
+        <VoteCount>{vote}</VoteCount>
+        <VoteButton onClick={handleDownvote}>V</VoteButton>
+      </VoteContainer>
+    </RecipeContainer>
   )
 }
 

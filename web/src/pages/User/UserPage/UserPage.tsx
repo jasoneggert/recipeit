@@ -5,6 +5,8 @@ type UserPageProps = {
 }
 
 const UserPage = ({ id }: UserPageProps) => {
+  console.log('🚀 ~ file: UserPage.tsx:9 ~ UserPage ~ id:', id)
+
   return <UserCell id={id} />
 }
 
