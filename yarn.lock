@@ -4267,6 +4267,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/auth-netlify-api@npm:4.4.2":
+  version: 4.4.2
+  resolution: "@redwoodjs/auth-netlify-api@npm:4.4.2"
+  dependencies:
+    "@babel/runtime-corejs3": 7.21.0
+    core-js: 3.29.1
+    jsonwebtoken: 9.0.0
+  checksum: 92008166520db66541472bb1a795e77e0d0b17c693cc4cb99fca9904a2dd798085d9c7b4f6ab68f94ba179926cbd8a7b43cad8b09eec8c9f7ba9bdf5781380d2
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/auth-netlify-setup@npm:4.4.2":
+  version: 4.4.2
+  resolution: "@redwoodjs/auth-netlify-setup@npm:4.4.2"
+  dependencies:
+    "@babel/runtime-corejs3": 7.21.0
+    "@redwoodjs/cli-helpers": 4.4.2
+    core-js: 3.29.1
+  checksum: b8055680b8708d0aab22ee549d06498dd5e41ab1bbf4f057a53f1d1e9b7f08e3a74834a55a833ba45c12193b2c78e1c058d38ca902dff968e61dde3064cbe7a2
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/auth-netlify-web@npm:4.4.2":
+  version: 4.4.2
+  resolution: "@redwoodjs/auth-netlify-web@npm:4.4.2"
+  dependencies:
+    "@babel/runtime-corejs3": 7.21.0
+    "@redwoodjs/auth": 4.4.2
+    core-js: 3.29.1
+  peerDependencies:
+    netlify-identity-widget: 1.9.2
+  checksum: 13fc15cc075d7febae2b447ec1b1f2217406bf2963791c208823a1ff9778a6e1efd25e20c5bb32979229afddbf28f967c24202fec829d567455de0c2bf5927cf
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/auth@npm:4.4.2":
   version: 4.4.2
   resolution: "@redwoodjs/auth@npm:4.4.2"
@@ -7838,6 +7873,7 @@ __metadata:
   resolution: "api@workspace:api"
   dependencies:
     "@redwoodjs/api": 4.4.2
+    "@redwoodjs/auth-netlify-api": 4.4.2
     "@redwoodjs/graphql-server": 4.4.2
   languageName: unknown
   linkType: soft
@@ -17793,6 +17829,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"netlify-identity-widget@npm:^1":
+  version: 1.9.2
+  resolution: "netlify-identity-widget@npm:1.9.2"
+  checksum: fcdc960f3228cdb4c1e6a1c98ca92f570d00d7914d9579712a16ef7ec72fe6d4396fbe07b24e9f9ca2fc12fd724d3193a40d97ed99c7690f209f329ae591af24
+  languageName: node
+  linkType: hard
+
 "new-github-issue-url@npm:0.2.1":
   version: 0.2.1
   resolution: "new-github-issue-url@npm:0.2.1"
@@ -20936,6 +20979,7 @@ __metadata:
   dependencies:
     "@fortawesome/free-solid-svg-icons": ^6.4.0
     "@fortawesome/react-fontawesome": ^0.2.0
+    "@redwoodjs/auth-netlify-setup": 4.4.2
     "@redwoodjs/core": 4.4.2
     styled-components: ^5.3.9
   languageName: unknown
@@ -23915,10 +23959,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:web"
   dependencies:
+    "@redwoodjs/auth-netlify-web": 4.4.2
     "@redwoodjs/forms": 4.4.2
     "@redwoodjs/router": 4.4.2
     "@redwoodjs/web": 4.4.2
     humanize-string: 2.1.0
+    netlify-identity-widget: ^1
     prop-types: 15.8.1
     react: 17.0.2
     react-dom: 17.0.2
