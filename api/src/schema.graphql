@@ -1,0 +1,58 @@
+type User {
+  id: ID!
+  email: String!
+  username: String!
+  password: String!
+  votes: [Vote!]!
+  recipes: [Recipe!]!
+}
+
+type Recipe {
+  id: ID!
+  name: String!
+  ingredients: [String!]!
+  steps: String!
+  userId: Int!
+  votes: [Vote!]!
+}
+
+type Vote {
+  id: ID!
+  user: User!
+  recipe: Recipe!
+  type: VoteType!
+}
+
+enum VoteType {
+  UPVOTE
+  DOWNVOTE
+}
+
+type Query {
+  users: [User!]!
+  recipes: [Recipe!]!
+  votes: [Vote!]!
+}
+
+type Mutation {
+  createUser(email: String!, username: String!, password: String!): User!
+  createRecipe(
+    name: String!
+    ingredients: [String!]!
+    steps: String!
+    userId: Int!
+  ): Recipe!
+  createVote(userId: Int!, recipeId: Int!, type: VoteType!): Vote!
+  updateUser(id: Int!, email: String, username: String, password: String): User!
+  updateRecipe(
+    id: Int!
+    name: String
+    ingredients: [String!]
+    steps: String
+    userId: Int
+  ): Recipe!
+  updateVote(id: Int!, userId: Int, recipeId: Int, type: VoteType): Vote!
+  deleteUser(id: Int!): User!
+  deleteRecipe(id: Int!): Recipe!
+  deleteVote(id: Int!): Vote!
+}
