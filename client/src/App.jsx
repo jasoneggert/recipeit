@@ -1,25 +1,26 @@
-import { useState } from "react";
 import "./App.css";
-import { useQuery, gql } from "@apollo/client";
-
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import Home from "./views/home";
+import Recipes from "./views/recipes";
+import { AppBar } from "@mui/material";
+import CreateRecipeView from "./views/CreateRecipeView";
 function App() {
-  const GET_USERS = gql`
-    query GET_USERS {
-      users {
-        id
-        username
-        email
-        password
-      }
-    }
-  `;
-
-  const { loading, error, data } = useQuery(GET_USERS);
-  console.log("🚀 ~ file: App.jsx:13 ~ data:", data);
-
   return (
     <>
-      <p>hi</p>
+      <AppBar />
+      <Router>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/recipes" exact element={<Recipes />} />
+          <Route path="/create-recipe" exact element={<CreateRecipeView />} />
+        </Routes>
+        <Outlet />
+      </Router>
     </>
   );
 }

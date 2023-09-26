@@ -1,5 +1,5 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const resolvers = {
   Query: {
@@ -11,6 +11,9 @@ const resolvers = {
     },
     votes: async (_, __, { prisma }) => {
       return prisma.vote.findMany();
+    },
+    comments: async (_, __, { prisma }) => {
+      return prisma.comment.findMany();
     },
   },
   Mutation: {
@@ -25,7 +28,11 @@ const resolvers = {
       });
       return user;
     },
-    createRecipe: async (_, { name, ingredients, steps, userId }, { prisma }) => {
+    createRecipe: async (
+      _,
+      { name, ingredients, steps, userId },
+      { prisma }
+    ) => {
       const recipe = await prisma.recipe.create({
         data: {
           name,
@@ -57,7 +64,11 @@ const resolvers = {
       });
       return user;
     },
-    updateRecipe: async (_, { id, name, ingredients, steps, userId }, { prisma }) => {
+    updateRecipe: async (
+      _,
+      { id, name, ingredients, steps, userId },
+      { prisma }
+    ) => {
       const recipe = await prisma.recipe.update({
         where: { id },
         data: {

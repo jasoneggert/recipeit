@@ -13,7 +13,14 @@ type Recipe {
   ingredients: [String!]!
   steps: String!
   userId: Int!
-  votes: [Vote!]!
+  votes: [Vote]!
+  comments: [Comment]
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  userId: Int!
 }
 
 type Vote {
@@ -30,8 +37,11 @@ enum VoteType {
 
 type Query {
   users: [User!]!
+  user(id: ID!): User
   recipes: [Recipe!]!
+  recipe(id: ID!): Recipe
   votes: [Vote!]!
+  comments: [Comment]!
 }
 
 type Mutation {
@@ -43,6 +53,7 @@ type Mutation {
     userId: Int!
   ): Recipe!
   createVote(userId: Int!, recipeId: Int!, type: VoteType!): Vote!
+  createComment(recipeId: Int!, text: String!, userId: Int!): Comment!
   updateUser(id: Int!, email: String, username: String, password: String): User!
   updateRecipe(
     id: Int!
@@ -55,4 +66,5 @@ type Mutation {
   deleteUser(id: Int!): User!
   deleteRecipe(id: Int!): Recipe!
   deleteVote(id: Int!): Vote!
+  deleteComment(id: Int!): Comment!
 }
